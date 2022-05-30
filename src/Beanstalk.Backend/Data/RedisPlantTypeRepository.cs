@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
-using Beanstalk.App.Models;
 using StackExchange.Redis;
 
-namespace Beanstalk.App.Data;
+namespace Beanstalk.Backend.Data;
 
 public class RedisPlantTypeRepository
 {
@@ -29,7 +28,7 @@ public class RedisPlantTypeRepository
         return await db.KeyExistsAsync("plant-types");
     }
 
-    public async Task<IEnumerable<PlantType?>> GetAllPlantTypesAsync()
+    public async Task<IEnumerable<PlantType?>> GetPlantTypesAsync(int pageSize=50, int pageOffset=0)
     {
         var db = _redis.GetDatabase();
 
@@ -37,9 +36,10 @@ public class RedisPlantTypeRepository
 
         if (completeSet.Length == 0) return new List<PlantType>();
         
-        var obj = Array.ConvertAll(completeSet, val => 
-            JsonSerializer.Deserialize<PlantType>(val.Value)).ToList();
-        return obj;
+        var plantTypeList = Array.ConvertAll(completeSet, val => 
+            JsonSerializer.Deserialize<PlantType>(val.Value)).ToList().Take(pageSize).Skip(pageSize*pageOffset);
+        
+        return plantTypeList;
 
     }
 
@@ -54,9 +54,9 @@ public class RedisPlantTypeRepository
 
     public async Task<IEnumerable<PlantType?>> SearchByCommonNameAsync(string searchTerm)
     {
-        var plantTypes = (await GetAllPlantTypesAsync()).ToList();
+        var plantTypes = (await GetPlantTypesAsync()).ToList();
         return plantTypes.Any()
-            ? plantTypes.Where(plantType => plantType is not null && plantType.CommmonName.Contains(searchTerm))
+            ? plantTypes.Where(plantType => plantType is not null && plantType.CommonName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
             : new List<PlantType?>();
     }
 }

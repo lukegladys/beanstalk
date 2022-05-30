@@ -5,16 +5,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Beanstalk.App/Beanstalk.App.csproj", "Beanstalk.App/"]
-RUN dotnet restore "Beanstalk.App/Beanstalk.App.csproj"
+COPY ["Beanstalk.Backend/Beanstalk.Backend.csproj", "Beanstalk.Backend/"]
+RUN dotnet restore "Beanstalk.Backend/Beanstalk.Backend.csproj"
 COPY . .
-WORKDIR "/src/Beanstalk.App"
-RUN dotnet build "Beanstalk.App.csproj" -c Release -o /app/build
+WORKDIR "/src/Beanstalk.Backend"
+RUN dotnet build "Beanstalk.Backend.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Beanstalk.App.csproj" -c Release -o /app/publish
+RUN dotnet publish "Beanstalk.Backend.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Beanstalk.App.dll"]
+ENTRYPOINT ["dotnet", "Beanstalk.Backend.dll"]

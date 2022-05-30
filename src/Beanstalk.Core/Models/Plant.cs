@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Beanstalk.App.Models;
+namespace Beanstalk.Core.Models;
 
 public class Plant
 {

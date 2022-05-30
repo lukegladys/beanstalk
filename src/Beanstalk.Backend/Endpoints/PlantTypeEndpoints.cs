@@ -1,11 +1,10 @@
-﻿using Beanstalk.App.Data;
-using Beanstalk.App.Endpoints.Internal;
-using Beanstalk.App.Models;
-using Beanstalk.App.Services;
+﻿using Beanstalk.Backend.Data;
+using Beanstalk.Backend.Endpoints.Internal;
+using Beanstalk.Backend.Services;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace Beanstalk.App.Endpoints;
+namespace Beanstalk.Backend.Endpoints;
 
 public class PlantTypeEndpoints : IEndpoint
 {
@@ -15,24 +14,26 @@ public class PlantTypeEndpoints : IEndpoint
     public static void AddServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<RedisPlantTypeRepository>();
-        services.AddSingleton<PlantTypeService>();
     }
     
-    internal static async Task<IResult> GetPlantTypeAsync(string plantTypeId, PlantTypeService plantTypeService)
+    internal static async Task<IResult> GetPlantTypeAsync(string plantTypeId, RedisPlantTypeRepository plantTypeRepository)
     {
-        var plantType = await plantTypeService.GetPlantTypeAsync(plantTypeId);
+        var plantType = await plantTypeRepository.GetPlantTypeAsync(plantTypeId);
         return plantType is not null ? Results.Ok(plantType) : Results.NotFound();
     }
     
-    internal static async Task<IResult> GetPlantTypesAsync(string? searchTerm, PlantTypeService plantTypeService)
+    internal static async Task<IResult> GetPlantTypesAsync(string? searchTerm,
+        RedisPlantTypeRepository plantTypeRepository,
+        int pageSize=50,
+        int pageOffset=0)
     {
         if (searchTerm is not null && !string.IsNullOrWhiteSpace(searchTerm))
         {
-            var matchedPlants = await plantTypeService.SearchByCommonNameAsync(searchTerm);
+            var matchedPlants = await plantTypeRepository.SearchByCommonNameAsync(searchTerm);
             return Results.Ok(matchedPlants);
         }
 
-        var plants = await plantTypeService.GetAllPlantTypesAsync();
+        var plants = await plantTypeRepository.GetPlantTypesAsync(pageSize, pageOffset);
         return Results.Ok(plants);
     }
 

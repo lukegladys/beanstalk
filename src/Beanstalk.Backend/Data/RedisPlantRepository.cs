@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
-using Beanstalk.App.Models;
 using StackExchange.Redis;
 
-namespace Beanstalk.App.Data;
+namespace Beanstalk.Backend.Data;
 
 public class RedisPlantRepository : IPlantRepository
 {
@@ -49,9 +48,8 @@ public class RedisPlantRepository : IPlantRepository
     public async Task<IEnumerable<Plant?>> SearchByNameAsync(string searchTerm)
     {
         var plants = (await GetAllPlantsAsync()).ToList();
-        return plants.Any()
-            ? plants.Where(plant => plant is not null && plant.Name.Contains(searchTerm))
-            : new List<Plant?>();
+        var returnPlants = plants.Where(plant => plant is not null && plant.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        return returnPlants;
     }
 
     public async Task UpdatePlantAsync(Plant updatedPlant)

@@ -4,10 +4,12 @@ using Beanstalk.Frontend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<PlantServiceClient>();
 
 var app = builder.Build();
 

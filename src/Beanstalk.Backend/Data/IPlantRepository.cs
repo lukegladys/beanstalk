@@ -1,6 +1,4 @@
-﻿using Beanstalk.App.Models;
-
-namespace Beanstalk.App.Data;
+﻿namespace Beanstalk.Backend.Data;
 
 public interface IPlantRepository
 {

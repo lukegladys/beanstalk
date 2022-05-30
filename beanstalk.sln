@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Backend", "src\Beanstalk.Backend\Beanstalk.Backend.csproj", "{123CA338-FB9C-4E93-833B-1C55CD120381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Frontend", "Beanstalk.Frontend\Beanstalk.Frontend.csproj", "{710E3E86-C967-4B0D-A814-52C533E31AF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Frontend", "src\Beanstalk.Frontend\Beanstalk.Frontend.csproj", "{3556DC29-3BAE-4230-BC94-7C86A7E14A01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Core", "src\Beanstalk.Core\Beanstalk.Core.csproj", "{656437C3-5A7D-49EA-89F9-50A5664C89B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +16,13 @@ Global
 								{123CA338-FB9C-4E93-833B-1C55CD120381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{123CA338-FB9C-4E93-833B-1C55CD120381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{123CA338-FB9C-4E93-833B-1C55CD120381}.Release|Any CPU.Build.0 = Release|Any CPU
-		{710E3E86-C967-4B0D-A814-52C533E31AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{710E3E86-C967-4B0D-A814-52C533E31AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{710E3E86-C967-4B0D-A814-52C533E31AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{710E3E86-C967-4B0D-A814-52C533E31AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3556DC29-3BAE-4230-BC94-7C86A7E14A01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3556DC29-3BAE-4230-BC94-7C86A7E14A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3556DC29-3BAE-4230-BC94-7C86A7E14A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3556DC29-3BAE-4230-BC94-7C86A7E14A01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656437C3-5A7D-49EA-89F9-50A5664C89B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656437C3-5A7D-49EA-89F9-50A5664C89B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656437C3-5A7D-49EA-89F9-50A5664C89B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656437C3-5A7D-49EA-89F9-50A5664C89B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

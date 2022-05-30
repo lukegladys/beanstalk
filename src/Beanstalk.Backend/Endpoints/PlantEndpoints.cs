@@ -1,11 +1,12 @@
-﻿using Beanstalk.App.Data;
-using Beanstalk.App.Endpoints.Internal;
-using Beanstalk.App.Models;
-using Beanstalk.App.Services;
+﻿using Beanstalk.Backend.Data;
+using Beanstalk.Backend.Dtos;
+using Beanstalk.Backend.Endpoints.Internal;
+using Beanstalk.Backend.Services;
 using FluentValidation;
 using FluentValidation.Results;
+using Mapster;
 
-namespace Beanstalk.App.Endpoints;
+namespace Beanstalk.Backend.Endpoints;
 
 public class PlantEndpoints : IEndpoint
 {
@@ -18,10 +19,12 @@ public class PlantEndpoints : IEndpoint
         services.AddSingleton<PlantService>();
     }
 
-    internal static async Task<IResult> CreatePlantAsync(Plant plant,
+    internal static async Task<IResult> CreatePlantAsync(CreatePlantDto plantDto,
                                                          PlantService plantService,
                                                          IValidator<Plant> validator)
     {
+        var plant = plantDto.Adapt<Plant>();
+            
         var validationResult = await validator.ValidateAsync(plant);
         if (!validationResult.IsValid)
         {
@@ -81,7 +84,7 @@ public class PlantEndpoints : IEndpoint
     {
         app.MapPost(BaseRoute, CreatePlantAsync)
             .WithName("CreatePlant")
-            .Accepts<Plant>(ContentType)
+            .Accepts<CreatePlantDto>(ContentType)
             .Produces<Plant>(201).Produces<IEnumerable<ValidationFailure>>(400)
             .WithTags(Tag);
 

@@ -1,7 +1,6 @@
-using Beanstalk.App.Data;
-using Beanstalk.App.Endpoints.Internal;
-using Beanstalk.App.Models;
-using Beanstalk.App.Services;
+using Beanstalk.Backend.Data;
+using Beanstalk.Backend.Endpoints.Internal;
+using Beanstalk.Backend.Services;
 using FluentValidation;
 using FluentValidation.Results;
 using StackExchange.Redis;
@@ -15,7 +14,6 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(opt =>
 builder.Services.AddEndpoints<Program>(builder.Configuration);
 
 builder.Services.AddSingleton<RedisPlantTypeRepository>();
-builder.Services.AddSingleton<PlantTypeService>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
@@ -37,6 +35,6 @@ app.UseHttpsRedirection();
 app.UseEndpoints<Program>();
 
 // Initialize cached defaults
-await app.Services.GetRequiredService<PlantTypeService>().InitializeDataAsync();
+await InitializeDb.PrepPopulation(app);
 
 app.Run();

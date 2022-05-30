@@ -1,4 +1,4 @@
-﻿namespace Beanstalk.App.Endpoints.Internal;
+﻿namespace Beanstalk.Backend.Endpoints.Internal;
 
 public interface IEndpoint
 {

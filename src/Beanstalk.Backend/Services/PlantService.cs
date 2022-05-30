@@ -1,7 +1,6 @@
-﻿using Beanstalk.App.Data;
-using Beanstalk.App.Models;
+﻿using Beanstalk.Backend.Data;
 
-namespace Beanstalk.App.Services;
+namespace Beanstalk.Backend.Services;
 
 public class PlantService
 {

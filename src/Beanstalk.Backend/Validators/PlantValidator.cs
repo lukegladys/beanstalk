@@ -1,7 +1,6 @@
-﻿using Beanstalk.App.Models;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Beanstalk.App.Validators;
+namespace Beanstalk.Backend.Validators;
 
 public class PlantValidator : AbstractValidator<Plant>
 {
