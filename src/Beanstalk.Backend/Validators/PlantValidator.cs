@@ -11,7 +11,5 @@ public class PlantValidator : AbstractValidator<Plant>
             .NotEmpty();
         
         RuleFor(plant => plant.Name).NotEmpty();
-        
-        RuleFor(plant => plant.Type).NotNull();
     }
 }
